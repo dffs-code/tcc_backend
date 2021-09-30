@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "faker-br": "^0.4.1",
-    "nodemon": "^2.0.12",
+    "nodemon": "^2.0.13",
     "sequelize-cli": "^6.2.0"
   }
 }
