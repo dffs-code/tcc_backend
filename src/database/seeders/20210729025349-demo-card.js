@@ -1,7 +1,7 @@
 const data = [
   {
-    teacher_id: 1,
-    subject_id: 1,
+    teacher_id: 5,
+    subject_id: 5,
     about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi viverra commodo metus eu tincidunt. Maecenas",
     price: 38,
     modality: "A distância",
@@ -10,8 +10,8 @@ const data = [
     updatedAt: new Date(),
   },
   {
-    teacher_id: 2,
-    subject_id: 2,
+    teacher_id: 15,
+    subject_id: 15,
     about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi viverra commodo metus eu tincidunt. Maecenas",
     price: 40.5,
     modality: "A distância",
@@ -20,8 +20,8 @@ const data = [
     updatedAt: new Date(),
   },
   {
-    teacher_id: 3,
-    subject_id: 3,
+    teacher_id: 25,
+    subject_id: 25,
     about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi viverra commodo metus eu tincidunt. Maecenas",
     price: 65.5,
     modality: "A distância",
@@ -30,8 +30,8 @@ const data = [
     updatedAt: new Date(),
   },
   {
-    teacher_id: 4,
-    subject_id: 4,
+    teacher_id: 35,
+    subject_id: 35,
     about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi viverra commodo metus eu tincidunt. Maecenas",
     price: 20.7,
     modality: "A distância",
@@ -40,8 +40,8 @@ const data = [
     updatedAt: new Date(),
   },
   {
-    teacher_id: 5,
-    subject_id: 5,
+    teacher_id: 45,
+    subject_id: 45,
     about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi viverra commodo metus eu tincidunt. Maecenas",
     price: 50,
     modality: "A distância",
@@ -50,8 +50,8 @@ const data = [
     updatedAt: new Date(),
   },
   {
-    teacher_id: 6,
-    subject_id: 1,
+    teacher_id: 55,
+    subject_id: 5,
     about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi viverra commodo metus eu tincidunt. Maecenas",
     price: 47,
     modality: "A distância",
@@ -60,8 +60,8 @@ const data = [
     updatedAt: new Date(),
   },
   {
-    teacher_id: 7,
-    subject_id: 2,
+    teacher_id: 65,
+    subject_id: 15,
     about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi viverra commodo metus eu tincidunt. Maecenas",
     price: 32,
     modality: "A distância",
@@ -70,8 +70,8 @@ const data = [
     updatedAt: new Date(),
   },
   {
-    teacher_id: 8,
-    subject_id: 3,
+    teacher_id: 75,
+    subject_id: 25,
     about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi viverra commodo metus eu tincidunt. Maecenas",
     price: 29.45,
     modality: "A distância",
@@ -80,8 +80,8 @@ const data = [
     updatedAt: new Date(),
   },
   {
-    teacher_id: 9,
-    subject_id: 4,
+    teacher_id: 85,
+    subject_id: 35,
     about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi viverra commodo metus eu tincidunt. Maecenas",
     price: 19.7,
     modality: "A distância",
@@ -90,8 +90,8 @@ const data = [
     updatedAt: new Date(),
   },
   {
-    teacher_id: 10,
-    subject_id: 5,
+    teacher_id: 95,
+    subject_id: 45,
     about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi viverra commodo metus eu tincidunt. Maecenas",
     price: 15,
     modality: "A distância",

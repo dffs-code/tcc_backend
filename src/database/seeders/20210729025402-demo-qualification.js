@@ -1,6 +1,6 @@
 const data = [
   {
-    teacher_id: 1,
+    teacher_id: 5,
     degree: "Bacharel ",
     course: "Ciencia da computação",
     institution: "IFSP",
@@ -9,7 +9,7 @@ const data = [
     updatedAt: new Date(),
   },
   {
-    teacher_id: 2,
+    teacher_id: 15,
     degree: "Tecnologo ",
     course: "Análise e desenvolvimento de sistemas",
     institution: "IFSP",
@@ -18,7 +18,7 @@ const data = [
     updatedAt: new Date(),
   },
   {
-    teacher_id: 3,
+    teacher_id: 25,
     degree: "Licenciatura ",
     course: "Letras",
     institution: "IFSP",
