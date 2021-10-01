@@ -7,4 +7,5 @@ module.exports = {
   port: process.env.MYSQL_PORT || 3306,
   define: {
     timestamps: true,
-  },
+    },
+}
