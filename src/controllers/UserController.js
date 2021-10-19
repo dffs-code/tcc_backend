@@ -44,27 +44,27 @@ module.exports = {
     try {
       const { id } = req.params;
 
+      const user = await User.findByPk(id);
+
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+      user.password = undefined;
+      return res.json(user);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
+
+  async userProfile(req, res) {
+    try {
+      const { id } = req.params;
+
       const user = await User.findByPk(id, {
-        // include: [
-        //   {
-        //     association: "teachers",
-  
-        //     include: [
-        //       {
-        //         association: "teaches",
-        //         include: {
-        //           association: "subject",
-        //         },
-        //       },
-        //       {
-        //         association: "qualifications",
-        //       },
-        //     ],
-        //   },
-        //   {
-        //     association: "students",
-        //   }
-        // ],
+        include: [
+          {association: "teachers"},
+          {association: "students"}
+        ],
       });
 
       if (!user) {
