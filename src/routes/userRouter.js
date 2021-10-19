@@ -8,7 +8,7 @@ router
   .post("/users", UserController.store)
   .get("/users/all", UserController.indexAll)
   .get("/users/:id", UserController.indexOne)
-  .get("/users/:id", UserController.userProfile)
+  .get("/users/:id/profile", UserController.userProfile)
   .put("/users/:id", UserController.update)
   .delete("/users/:id", UserController.delete)
 
