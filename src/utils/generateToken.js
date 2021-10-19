@@ -3,6 +3,6 @@ const authConfig = require("../config/auth.json");
 
 module.exports = (id) => {
   return jwt.sign({ id: id }, authConfig.secret, {
-    expiresIn: 86400,
+    expiresIn: 604800,
   });
 };
