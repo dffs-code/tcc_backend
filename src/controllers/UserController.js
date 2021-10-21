@@ -21,7 +21,7 @@ module.exports = {
         return res.status(401).json({ message: "Email already used"});
       }
 
-      await User.create({
+      const user = await User.create({
         name: req.body.name,
         email: req.body.email,
         password: generateHashedPassword(req.body.password),
@@ -34,7 +34,9 @@ module.exports = {
         avatar: req.body.avatar
       });
 
-      return res.send(201);
+      return res.status(201).send({
+        token: generateToken(user.id),
+      });
     } catch (err) {
       res.status(500).json(err);
     }
