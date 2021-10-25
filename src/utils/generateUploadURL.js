@@ -4,8 +4,6 @@ const crypto = require('crypto');
 const { promisify } = require('util');
 const randomBytes = promisify(crypto.randomBytes)
 
-dotenv.config();
-
 const region = process.env.AWS_REGION;
 const bucketName = process.env.AWS_BUCKET;
 const accessKeyId = process.env.AWS_ACCESS_KEY;
