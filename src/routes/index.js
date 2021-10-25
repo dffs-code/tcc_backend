@@ -7,6 +7,7 @@ const qualification = require("./qualificationRouter");
 const category = require("./categoryRouter");
 const card = require("./cardRouter");
 const rating = require("./ratingRouter");
+const s3 = require("./s3UploadImageRouter");
 
 module.exports = (app) => {
   app.use(
@@ -18,6 +19,7 @@ module.exports = (app) => {
     card,
     request,
     rating,
-    category
+    category,
+    s3
   );
 };
