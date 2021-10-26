@@ -1,4 +1,3 @@
-const dotenv = require('dotenv');
 const aws = require('aws-sdk');
 const crypto = require('crypto');
 const { promisify } = require('util');
