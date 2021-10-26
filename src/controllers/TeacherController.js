@@ -5,7 +5,7 @@ const Student = require("../models/Student");
 module.exports = {
   async store(req, res) {
     try {
-      const { user_id, about, price, modality } = req.body;
+      const { user_id, about } = req.body;
 
       const verifyIfExistsTeacher = await User.findByPk(user_id);
 
