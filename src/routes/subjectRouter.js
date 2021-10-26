@@ -9,6 +9,7 @@ router
   .post("/subjects", SubjectController.store)
   .get("/subjects/all", SubjectController.indexAll)
   .get("/subjects/:id", SubjectController.indexOne)
+  .get("/subjectByName/:name", SubjectController.indexByName)
   .put("/subjects/:id", SubjectController.update)
   .delete("/subjects/:id", SubjectController.delete);
 

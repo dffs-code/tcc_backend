@@ -45,6 +45,28 @@ module.exports = {
     }
   },
 
+  async indexByName(req, res) {
+    try {
+      const { name } = req.params;
+
+      const subject = await Subject.findOne({
+        where: {
+          name: name
+        },
+        attributes: ["id"]
+      });
+
+      if (!subject) {
+        return res.status(400).json({ error: "Subject not found" });
+      }
+
+      return res.json(subject);
+
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
+
   async indexAll(req, res) {
     try {
       const subjects = await Subject.findAll({
