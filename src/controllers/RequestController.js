@@ -61,12 +61,47 @@ module.exports = {
     }
   },
 
-  async indexAll(req, res) {
+  async indexAllStudent(req, res) {
+    const { id } = req.params;
+
     try {
       const requests = await Request.findAll({
+        where: {
+          student_id: id
+        },        
         include: {
           association: "card",
           attributes: ["id"],
+          include: [{
+            association: "teacher",
+            atrtributes: ["id", "user_id"],
+            include: {
+              association: "user",
+              attributes: ["name", "avatar"]
+            }
+          },{
+            association: "subject",
+            attributes: ["name"]
+          }]
+        }
+      });
+      return res.status(200).json(requests);
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
+  },
+
+  async indexAllTeacher(req, res) {
+    const { id } = req.params;
+
+    try {
+      const requests = await Request.findAll({
+        where: {
+          '$card.teacher_id$': id
+        },
+        include: {
+          association: "card",
           include: [{
             association: "teacher",
             atrtributes: ["id", "user_id"],
