@@ -41,6 +41,20 @@ module.exports = {
     }
   },
 
+  async indexAllSubjects(req, res) {
+    try {
+      const categories = await Category.findAll({
+        include: {
+          association: "subjects"
+        }
+      });
+
+      return res.status(200).json(categories);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
+
   async update(req, res) {
     try {
       const { id } = req.params;
