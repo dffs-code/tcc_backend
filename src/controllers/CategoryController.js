@@ -46,7 +46,8 @@ module.exports = {
       const categories = await Category.findAll({
         include: {
           association: "subjects"
-        }
+        },
+        limit: req.query.limit || 4
       });
 
       return res.status(200).json(categories);
