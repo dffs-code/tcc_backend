@@ -71,7 +71,7 @@ module.exports = {
     try {
       const subjects = await Subject.findAll({
         include: [{ 
-          association: 'categories',
+          association: 'category',
           attributes: ['description']
         },{
           association: 'cards',
