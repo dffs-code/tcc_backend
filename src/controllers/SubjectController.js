@@ -67,6 +67,27 @@ module.exports = {
     }
   },
 
+  async indexByCategory(req, res) {
+    try {
+      const { category_id } = req.params;
+
+      const subject = await Subject.findAll({
+        where: {
+          category_id: category_id
+        }
+      });
+
+      if (!subject) {
+        return res.status(400).json({ error: "Subject not found" });
+      }
+
+      return res.json(subject);
+
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
+
   async indexAll(req, res) {
     try {
       const subjects = await Subject.findAll({
