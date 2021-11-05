@@ -10,6 +10,7 @@ router
   .get("/card/all", CardController.indexAll)
   .get("/card/fullCards", CardController.indexAllFullCards)
   .get("/card/category/:categoryId", CardController.indexAllCardsByCategory)
+  .get("/card/subject/:subjectName", CardController.indexAllCardsBySubjectName)
   .get("/card/:id", CardController.indexOne)
   .put("/card/:id", CardController.update)
   .delete("/card/:id", CardController.delete);

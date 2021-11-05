@@ -111,6 +111,18 @@ module.exports = {
     }
   },
 
+  async indexAllCardsBySubjectName(req, res) {
+    const { subjectName } = req.params;
+    try {
+
+        const cards = await Card.sequelize.query("SELECT `Card`.`id`, `Card`.`about`, `Card`.`price`, `teacher`.`id` AS `teacher.id`, `teacher`.`about` AS `teacher.about`, `teacher->user`.`id` AS `teacher.user.id`, `teacher->user`.`avatar` AS `teacher_avatar`, `teacher->user`.`name` AS `teacher_name`, `teacher->user`.`city` AS `teacher_city`, `ratings`.`id` AS `ratings.id`, AVG(`stars`) AS `avg_stars`, `subject`.`id` AS `subject.id`, `subject`.`name` AS `subject_name`, `subject->category`.`id` AS `subject.category.id` FROM `Cards` AS `Card` LEFT OUTER JOIN `Teachers` AS `teacher` ON `Card`.`teacher_id` = `teacher`.`id` LEFT OUTER JOIN `Users` AS `teacher->user` ON `teacher`.`user_id` = `teacher->user`.`id` LEFT OUTER JOIN `Ratings` AS `ratings` ON `Card`.`id` = `ratings`.`card_id` LEFT OUTER JOIN `Subjects` AS `subject` ON `Card`.`subject_id` = `subject`.`id` LEFT OUTER JOIN `Categories` AS `subject->category` ON `subject`.`category_id` = `subject->category`.`id` WHERE `subject`.`name` LIKE '%" + subjectName + "%' GROUP BY `Card`.`id`;")
+        return res.json(cards);
+    } catch (err) {
+      console.log(err)
+      res.status(500).json(err);
+    }
+  },
+
   async update(req, res) {
     try {
       const { id } = req.params;
