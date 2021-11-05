@@ -1,4 +1,6 @@
-require('dotenv').config()
+if(process.env.LOCAL){
+  require('dotenv').config()
+}
 
 module.exports = {
   dialect: 'mysql',
