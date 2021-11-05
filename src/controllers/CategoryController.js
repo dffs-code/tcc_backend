@@ -42,15 +42,25 @@ module.exports = {
   },
 
   async indexAllSubjects(req, res) {
+    const {limit} = req.query;
     try {
-      const categories = await Category.findAll({
-        include: {
-          association: "subjects"
-        },
-        limit: req.query.limit || 4
-      });
+      if(limit){
+        const categories = await Category.findAll({
+          include: {
+            association: "subjects"
+          },
+          limit: parseInt(req.query.limit) //|| 4
+        });
+        return res.status(200).json(categories);
+      } else {
+        const categories = await Category.findAll({
+          include: {
+            association: "subjects"
+          }
+        });
+        return res.status(200).json(categories);
+      }
 
-      return res.status(200).json(categories);
     } catch (err) {
       res.status(500).json(err);
     }
