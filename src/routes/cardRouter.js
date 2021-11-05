@@ -8,7 +8,8 @@ router
   // .use(authMiddleware)
   .post("/card", CardController.store)
   .get("/card/all", CardController.indexAll)
-  .get("/card/fullCards", CardController.indexFullCard)
+  .get("/card/fullCards", CardController.indexAllFullCards)
+  .get("/card/category/:categoryId", CardController.indexAllCardsByCategory)
   .get("/card/:id", CardController.indexOne)
   .put("/card/:id", CardController.update)
   .delete("/card/:id", CardController.delete);

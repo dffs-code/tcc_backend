@@ -15,7 +15,7 @@ class Subject extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.Category, { foreignKey: 'category_id', as: 'categories'})
+    this.belongsTo(models.Category, { foreignKey: 'category_id', as: 'category'})
     this.hasMany(models.Card, { foreignKey: 'subject_id', as: 'cards' })
   }
 }
