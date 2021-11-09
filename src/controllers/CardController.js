@@ -128,7 +128,8 @@ module.exports = {
 
     if(orderBy === "avg_stars"){
       orderBy += " DESC"
-    } else {
+    }
+    if(orderBy === price){
       orderBy += " ASC"
     }
 
