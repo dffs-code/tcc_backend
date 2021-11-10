@@ -64,8 +64,8 @@ module.exports = {
 
       const user = await User.findByPk(id, {
         include: [
-          {association: "teachers"},
-          {association: "students"}
+          {association: "teacher"},
+          {association: "student"}
         ],
       });
 
