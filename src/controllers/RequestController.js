@@ -100,7 +100,7 @@ module.exports = {
         where: {
           '$card.teacher_id$': id
         },
-        include: {
+        include: [{
           association: "card",
           include: [{
             association: "teacher",
@@ -112,10 +112,10 @@ module.exports = {
           },{
             association: "subject",
             attributes: ["name"]
-          },{
-            association: "student"
-          }]
-        }
+          }
+        ]},{
+          association: "student"
+        }]
       });
       return res.status(200).json(requests);
     } catch (err) {
