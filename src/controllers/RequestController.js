@@ -104,7 +104,7 @@ module.exports = {
           association: "card",
           include: [{
             association: "teacher",
-            atrtributes: ["id", "user_id"],
+            attributes: ["id", "user_id"],
             include: {
               association: "user",
               attributes: ["name", "avatar"]
@@ -114,8 +114,14 @@ module.exports = {
             attributes: ["name"]
           }
         ]},{
-          association: "student"
-        }]
+          association: 'student',
+          attributes: ["id", "user_id"],
+          include: {
+            association: 'user',
+            attributes: ["name", "avatar"]
+          }
+        }
+      ]
       });
       return res.status(200).json(requests);
     } catch (err) {

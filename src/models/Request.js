@@ -17,7 +17,7 @@ class Request extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.User, { foreignKey: 'student_id', as: 'student' }); //ok
+    this.belongsTo(models.Student, { foreignKey: 'student_id', as: 'student' }); //ok
     this.belongsTo(models.Card, { foreignKey: 'card_id', as: 'card' }); //ok
     this.hasMany(models.Rating, { foreignKey: 'request_id', as: 'ratings' }) // ok
 
