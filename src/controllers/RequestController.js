@@ -112,6 +112,8 @@ module.exports = {
           },{
             association: "subject",
             attributes: ["name"]
+          },{
+            association: "student"
           }]
         }
       });
