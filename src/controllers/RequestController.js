@@ -63,12 +63,19 @@ module.exports = {
 
   async indexAllStudent(req, res) {
     const { id } = req.params;
-
+    const { status } = req.query;
+    var whereStatement = {
+      student_id: id
+    };
+    if (status){
+      whereStatement = {
+        student_id: id,
+        status: status
+      };
+    }
     try {
       const requests = await Request.findAll({
-        where: {
-          student_id: id
-        },        
+        where: whereStatement,        
         include: {
           association: "card",
           attributes: ["id"],
@@ -94,34 +101,43 @@ module.exports = {
 
   async indexAllTeacher(req, res) {
     const { id } = req.params;
-
-    try {
-      const requests = await Request.findAll({
-        where: {
-          '$card.teacher_id$': id
-        },
-        include: [{
-          association: "card",
+    const { status } = req.query;
+    var whereStatement = {
+      '$card.teacher_id$': id
+    };
+    if (status){
+      whereStatement = {
+        '$card.teacher_id$': id,
+        status: status
+      };
+    }
+      try {
+        const requests = await Request.findAll({
+          where: whereStatement,
           include: [{
-            association: "teacher",
+            association: "card",
+            include: [{
+              association: "teacher",
+              attributes: ["id", "user_id"],
+              include: {
+                association: "user",
+                attributes: ["name", "avatar"]
+              }
+            },{
+              association: "subject",
+              attributes: ["name"]
+            }
+          ]},{
+            association: 'student',
             attributes: ["id", "user_id"],
             include: {
-              association: "user",
+              association: 'user',
               attributes: ["name", "avatar"]
             }
-          },{
-            association: "subject",
-            attributes: ["name"]
           }
-        ]},{
-          association: 'student',
-          attributes: ["id", "user_id"],
-          include: {
-            association: 'user',
-            attributes: ["name", "avatar"]
-          }
-        }
-      ]
+        ],
+        order: [[
+          "status", 'ASC']]
       });
       return res.status(200).json(requests);
     } catch (err) {
