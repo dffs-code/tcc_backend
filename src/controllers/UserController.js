@@ -1,5 +1,4 @@
 const User = require("../models/User");
-const Teacher = require("../models/Teacher");
 const bcrypt = require("bcrypt");
 
 const generateHashedPassword = require("../utils/generateHashedPassword");
@@ -92,31 +91,40 @@ module.exports = {
   async update(req, res) {
     try {
       const { id } = req.params;
+      const { email } = req.body;
+
+      const existsEmail = await User.findOne({ 
+        where: {
+          email: email
+        }
+      });
 
       const userBeforeModification = await User.findByPk(id);
 
-      await User.update(
-        {
-          name: req.body.name,
-          email: userBeforeModification.email,
-          password: userBeforeModification.password,
-          dateBirth: req.body.dateBirth,
-          zipCode: req.body.zipCode,
-          state: req.body.state,
-          city: req.body.city,
-          district: req.body.district,
-          address: req.body.address,
-          avatar: req.body.avatar,
-          updatedAt: new Date(),
-        },
-        {
-          where: {
-            id: id,
-          },
+      if(!existsEmail || (existsEmail.id == req.params.id)){
+        await User.update({
+            name: req.body.name,
+            email: req.body.email,
+            password: userBeforeModification.password,
+            dateBirth: req.body.dateBirth,
+            zipCode: req.body.zipCode,
+            state: req.body.state,
+            city: req.body.city,
+            district: req.body.district,
+            address: req.body.address,
+            avatar: req.body.avatar,
+            updatedAt: new Date(),
+          },{
+            where: {
+              id: id,
+            },
+          }
+          );
+          res.sendStatus(200);
+        }else{
+          res.sendStatus(401);
         }
-      );
-      return res.send(200);
-    } catch (err) {
+        } catch (err) {
       res.status(500).json(err);
     }
   },
@@ -137,7 +145,7 @@ module.exports = {
         },
       });
 
-      res.send(200);
+      res.sendStatus(200);
     } catch (err) {
       res.status(500).json(err);
     }

@@ -92,7 +92,7 @@ module.exports = {
         }
       );
 
-      return res.send(200);
+      return res.sendStatus(200);
 
     } catch (err) {
       res.status(500).json(err);
@@ -115,7 +115,7 @@ module.exports = {
         },
       });
 
-      res.send(200);
+      res.sendStatus(200);
 
     } catch (err) {
       res.status(500).json(err);
