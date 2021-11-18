@@ -64,33 +64,7 @@ module.exports = {
 
   async indexAllFullCards(req, res) {
     try {
-       
-      // const cards = await Card.findAll(
 
-      //   {
-      //     attributes: ['id', 'about', 'price'], 
-      //     include: [{
-      //         association: "teacher",
-      //         attributes: ['about'],
-      //         include: {
-      //           association: "user",
-      //           attributes: ['avatar', 'name', 'city']
-      //         }
-      //       },{
-      //         association: "ratings",
-      //         attributes: [[Sequelize.fn('AVG', Sequelize.col(`stars`)), "avg_stars"]]
-      //       },{
-      //         association: "subject",
-      //         attributes: ['name'],
-      //         include: {
-      //           association: "category",
-      //           attributes: ['id']
-      //         }
-      //       },
-      //     ],
-      //       group: 'Card.id'
-      //     }
-      // )
         const cards = await Card.sequelize.query("SELECT `Card`.`id`, `Card`.`about`, `Card`.`price`, `teacher`.`id` AS `teacher_id`, `teacher`.`about` AS `teacher_about`, `teacher->user`.`avatar` AS `teacher_avatar`, `teacher->user`.`name` AS `teacher_name`, `teacher->user`.`city` AS `teacher_city`, AVG(`stars`) AS `avg_stars`, `subject`.`name` AS `subject_name` FROM `Cards` AS `Card` LEFT OUTER JOIN `Teachers` AS `teacher` ON `Card`.`teacher_id` = `teacher`.`id` LEFT OUTER JOIN `Users` AS `teacher->user` ON `teacher`.`user_id` = `teacher->user`.`id` LEFT OUTER JOIN `Ratings` AS `ratings` ON `Card`.`id` = `ratings`.`card_id` LEFT OUTER JOIN `Subjects` AS `subject` ON `Card`.`subject_id` = `subject`.`id` GROUP BY `Card`.`id`", { type: Sequelize.QueryTypes.SELECT})
         return res.json(cards);
     } catch (err) {
@@ -159,7 +133,7 @@ module.exports = {
   async update(req, res) {
     try {
       const { id } = req.params;
-      const { about, price, modality, status } = req.body;
+      const { subject_id, about, price, modality, status } = req.body;
 
       const verifyIfExistsCard = await Card.findByPk(id);
 
@@ -169,6 +143,7 @@ module.exports = {
 
       await Card.update(
         {
+          subject_id,
           about,
           price,
           modality,
