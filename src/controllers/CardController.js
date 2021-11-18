@@ -91,7 +91,19 @@ module.exports = {
       //       group: 'Card.id'
       //     }
       // )
-        const cards = await Card.sequelize.query("SELECT `Card`.`id`, `Card`.`about`, `Card`.`price`, `teacher`.`id` AS `teacher.id`, `teacher`.`about` AS `teacher.about`, `teacher->user`.`avatar` AS `teacher_avatar`, `teacher->user`.`name` AS `teacher_name`, `teacher->user`.`city` AS `teacher_city`, AVG(`stars`) AS `avg_stars`, `subject`.`name` AS `subject_name` FROM `Cards` AS `Card` LEFT OUTER JOIN `Teachers` AS `teacher` ON `Card`.`teacher_id` = `teacher`.`id` LEFT OUTER JOIN `Users` AS `teacher->user` ON `teacher`.`user_id` = `teacher->user`.`id` LEFT OUTER JOIN `Ratings` AS `ratings` ON `Card`.`id` = `ratings`.`card_id` LEFT OUTER JOIN `Subjects` AS `subject` ON `Card`.`subject_id` = `subject`.`id` GROUP BY `Card`.`id`", { type: Sequelize.QueryTypes.SELECT})
+        const cards = await Card.sequelize.query("SELECT `Card`.`id`, `Card`.`about`, `Card`.`price`, `teacher`.`id` AS `teacher_id`, `teacher`.`about` AS `teacher_about`, `teacher->user`.`avatar` AS `teacher_avatar`, `teacher->user`.`name` AS `teacher_name`, `teacher->user`.`city` AS `teacher_city`, AVG(`stars`) AS `avg_stars`, `subject`.`name` AS `subject_name` FROM `Cards` AS `Card` LEFT OUTER JOIN `Teachers` AS `teacher` ON `Card`.`teacher_id` = `teacher`.`id` LEFT OUTER JOIN `Users` AS `teacher->user` ON `teacher`.`user_id` = `teacher->user`.`id` LEFT OUTER JOIN `Ratings` AS `ratings` ON `Card`.`id` = `ratings`.`card_id` LEFT OUTER JOIN `Subjects` AS `subject` ON `Card`.`subject_id` = `subject`.`id` GROUP BY `Card`.`id`", { type: Sequelize.QueryTypes.SELECT})
+        return res.json(cards);
+    } catch (err) {
+      console.log(err)
+      res.status(500).json(err);
+    }
+  },
+
+  async indexAllCardsByTeacher(req, res) {
+    const { teacherId } = req.params;
+
+    try {
+        const cards = await Card.sequelize.query("SELECT `Card`.`id`, `Card`.`about`, `Card`.`price`, `teacher`.`id` AS `teacher_id`, `teacher`.`about` AS `teacher_about`, `teacher->user`.`avatar` AS `teacher_avatar`, `teacher->user`.`name` AS `teacher_name`, `teacher->user`.`city` AS `teacher_city`, AVG(`stars`) AS `avg_stars`, `subject`.`name` AS `subject_name` FROM `Cards` AS `Card` LEFT OUTER JOIN `Teachers` AS `teacher` ON `Card`.`teacher_id` = `teacher`.`id` LEFT OUTER JOIN `Users` AS `teacher->user` ON `teacher`.`user_id` = `teacher->user`.`id` LEFT OUTER JOIN `Ratings` AS `ratings` ON `Card`.`id` = `ratings`.`card_id` LEFT OUTER JOIN `Subjects` AS `subject` ON `Card`.`subject_id` = `subject`.`id` WHERE `teacher`.`id` = " + teacherId + " GROUP BY `Card`.`id`" , { type: Sequelize.QueryTypes.SELECT})
         return res.json(cards);
     } catch (err) {
       console.log(err)

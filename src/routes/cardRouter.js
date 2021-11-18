@@ -11,6 +11,7 @@ router
   .get("/card/fullCards", CardController.indexAllFullCards)
   .get("/card/category/:categoryId", CardController.indexAllCardsByCategory)
   .get("/card/subject/:subjectName", CardController.indexAllCardsBySubjectName)
+  .get("/card/teacher/:teacherId", CardController.indexAllCardsByTeacher)
   .get("/card/all/filter", CardController.indexCardsByFilter)
   .get("/card/:id", CardController.indexOne)
   .put("/card/:id", CardController.update)
