@@ -137,19 +137,24 @@ module.exports = {
       const userBeforeModification = await User.findByPk(id);
       bcrypt.compare(password, userBeforeModification.password, async (err, result) => {
         if (err) {
-          res.status(401).json({
+          res.status(400).json({
             error: err,
           });
         }else{
-          await User.update({
-            password: generateHashedPassword(new_password),
-          },{
-            where: {
-              id: id,
-            },
+          if(result){
+
+            await User.update({
+              password: generateHashedPassword(new_password),
+            },{
+              where: {
+                id: id,
+              },
+            }
+            );
+            res.sendStatus(200);
+          }else{ 
+            res.sendStatus(401);
           }
-          );
-          res.sendStatus(200);
         }
       })
     } catch (err) {
