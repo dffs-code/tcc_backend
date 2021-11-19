@@ -5,7 +5,7 @@ const authMiddleware = require("../middlewares/auth");
 const router = Router();
 
 router
-  // .use(authMiddleware)
+  .use(authMiddleware)
   .post("/qualifications", QualificationController.store)
   .get("/qualifications/all", QualificationController.indexAll)
   .get("/qualifications/:id", QualificationController.indexOne)

@@ -5,7 +5,7 @@ const authMiddleware = require("../middlewares/auth");
 const router = Router();
 
 router
-  // .use(authMiddleware)
+  .use(authMiddleware)
   .post("/categories", CategoryController.store)
   .get("/categories/all", CategoryController.indexAll)
   .get("/categories/all/subjects", CategoryController.indexAllSubjects)

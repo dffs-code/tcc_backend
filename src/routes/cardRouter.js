@@ -5,7 +5,7 @@ const authMiddleware = require("../middlewares/auth");
 const router = Router();
 
 router
-  // .use(authMiddleware)
+  .use(authMiddleware)
   .post("/card", CardController.store)
   .get("/card/all", CardController.indexAll)
   .get("/card/fullCards", CardController.indexAllFullCards)

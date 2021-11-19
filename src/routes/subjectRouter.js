@@ -5,7 +5,7 @@ const authMiddleware = require("../middlewares/auth");
 const router = Router();
 
 router
-  // .use(authMiddleware)
+  .use(authMiddleware)
   .post("/subjects", SubjectController.store)
   .get("/subjects/all", SubjectController.indexAll)
   .get("/subjects/:id", SubjectController.indexOne)

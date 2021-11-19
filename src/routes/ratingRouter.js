@@ -5,7 +5,7 @@ const authMiddleware = require("../middlewares/auth");
 const router = Router();
 
 router
-  // .use(authMiddleware)
+  .use(authMiddleware)
   .post("/rating", RatingController.store)
   .get("/rating/all", RatingController.indexAll)
   .get("/rating/:id", RatingController.indexOne)
