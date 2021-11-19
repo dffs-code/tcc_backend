@@ -8,7 +8,17 @@ module.exports = {
   async store(req, res) {
     try {
 
-      const { email } = req.body;
+      const {
+        name,
+        email,
+        dateBirth,
+        zipCode,
+        state,
+        city,
+        district,
+        address,
+        avatar
+      } = req.body;
 
       const verifyAlreadyEmail = await User.findOne({
         where: {
@@ -16,21 +26,23 @@ module.exports = {
         },
       })
 
-      if(verifyAlreadyEmail) {
-        return res.status(401).json({ message: "Email already used"});
+      if (verifyAlreadyEmail) {
+        return res.status(401).json({
+          message: "Email already used"
+        });
       }
 
       const user = await User.create({
-        name: req.body.name,
-        email: req.body.email,
+        name,
+        email,
         password: generateHashedPassword(req.body.password),
-        dateBirth: req.body.dateBirth,
-        zipCode: req.body.zipCode,
-        state: req.body.state,
-        city: req.body.city,
-        district: req.body.district,
-        address: req.body.address,
-        avatar: req.body.avatar
+        dateBirth,
+        zipCode,
+        state,
+        city,
+        district,
+        address,
+        avatar
       });
 
       return res.status(201).send({
@@ -90,10 +102,22 @@ module.exports = {
 
   async update(req, res) {
     try {
-      const { id } = req.params;
-      const { email } = req.body;
+      const {
+        id
+      } = req.params;
+      const {
+        name,
+        email,
+        dateBirth,
+        zipCode,
+        state,
+        city,
+        district,
+        address,
+        avatar
+      } = req.body;
 
-      const existsEmail = await User.findOne({ 
+      const existsEmail = await User.findOne({
         where: {
           email: email
         }
@@ -101,30 +125,29 @@ module.exports = {
 
       const userBeforeModification = await User.findByPk(id);
 
-      if(!existsEmail || (existsEmail.id == req.params.id)){
+      if (!existsEmail || (existsEmail.id == req.params.id)) {
         await User.update({
-            name: req.body.name,
-            email: req.body.email,
-            password: userBeforeModification.password,
-            dateBirth: req.body.dateBirth,
-            zipCode: req.body.zipCode,
-            state: req.body.state,
-            city: req.body.city,
-            district: req.body.district,
-            address: req.body.address,
-            avatar: req.body.avatar,
-            updatedAt: new Date(),
-          },{
-            where: {
-              id: id,
-            },
-          }
-          );
-          res.sendStatus(200);
-        }else{
-          res.sendStatus(401);
-        }
-        } catch (err) {
+          name,
+          email,
+          password: userBeforeModification.password,
+          dateBirth,
+          zipCode,
+          state,
+          city,
+          district,
+          address,
+          avatar,
+          updatedAt: new Date(),
+        }, {
+          where: {
+            id: id,
+          },
+        });
+        res.sendStatus(200);
+      } else {
+        res.sendStatus(401);
+      }
+    } catch (err) {
       res.status(500).json(err);
     }
   },
@@ -132,7 +155,10 @@ module.exports = {
   async changePassword(req, res) {
     try {
       const { id } = req.params;
-      const { password, new_password } = req.body;
+      const {
+        password,
+        new_password
+      } = req.body;
 
       const userBeforeModification = await User.findByPk(id);
       bcrypt.compare(password, userBeforeModification.password, async (err, result) => {
@@ -140,74 +166,78 @@ module.exports = {
           res.status(400).json({
             error: err,
           });
-        }else{
-          if(result){
+        } else {
+          if (result) {
 
             await User.update({
               password: generateHashedPassword(new_password),
-            },{
+            }, {
               where: {
                 id: id,
               },
-            }
-            );
+            });
             res.sendStatus(200);
-          }else{ 
+          } else {
             res.sendStatus(401);
           }
         }
-      })
+      });
     } catch (err) {
       res.status(500).json(err);
     }
   },
 
   async delete(req, res) {
-    try {
-      const { id } = req.params;
+      try {
+        const { id } = req.params;
 
-      const verifyIfExistsUser = await User.findByPk(id);
+        const verifyIfExistsUser = await User.findByPk(id);
 
-      if (!verifyIfExistsUser) {
-        return res.status(400).json({ error: "User not found" });
-      }
-
-      await User.destroy({
-        where: {
-          id: id,
-        },
-      });
-
-      res.sendStatus(200);
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  },
-
-  async auth(req, res) {
-    const { email, password } = req.body;
-
-    const { user } = req; // recebe o usuário do middleware verifyExistsMail
-
-    bcrypt.compare(password, user.password, (err, result) => {
-      if (err) {
-        res.status(400).json({
-          error: err,
-        });
-      } else {
-        if (result) {
-          user.password = undefined; //o nick que programou essa linha
-          res.status(200).send({
-            isCorrect: result,
-            token: generateToken(user.id),
-          });
-        } else {
-          res.status(401).json({
-            isCorrect: result,
-            message: "Invalid Password",
+        if (!verifyIfExistsUser) {
+          return res.status(400).json({
+            error: "User not found"
           });
         }
+
+        await User.destroy({
+          where: {
+            id: id,
+          },
+        });
+
+        res.sendStatus(200);
+      } catch (err) {
+        res.status(500).json(err);
       }
-    });
-  },
-};
+    },
+
+    async auth(req, res) {
+      const {
+        email,
+        password
+      } = req.body;
+
+      const { user } = req; // recebe o usuário do middleware verifyExistsMail
+
+      bcrypt.compare(password, user.password, (err, result) => {
+        if (err) {
+          res.status(400).json({
+            error: err,
+          });
+        } else {
+          if (result) {
+            user.password = undefined; //o nick que programou essa linha
+            res.status(200).send({
+              isCorrect: result,
+              token: generateToken(user.id),
+            });
+          } else {
+            res.status(401).json({
+              isCorrect: result,
+              message: "Invalid Password",
+            });
+          }
+        }
+      });
+    },
+  };
