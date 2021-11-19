@@ -12,6 +12,7 @@ const generateToken = require("./generateToken")
 
 module.exports = (app) => {
   app.use(
+    generateToken,
     user,
     teacher,
     student,
@@ -22,6 +23,5 @@ module.exports = (app) => {
     rating,
     category,
     s3,
-    generateToken
   );
 };

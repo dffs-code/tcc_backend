@@ -1,10 +1,11 @@
 const { Router } = require("express");
-const uploadImageController = require("../controllers/uploadImageController")
+const UploadImageController = require("../controllers/UploadImageController")
+const authMiddleware = require("../middlewares/auth");
 
 const router = Router();
 
 router
   .use(authMiddleware)
-  .get("/s3UploadImage", uploadImageController.generate)
+  .get("/s3UploadImage", UploadImageController.generate)
 
 module.exports = router;

@@ -1,9 +1,13 @@
 const { Router } = require("express");
-const generateToken = require("../utils/generateToken");
-
 const router = Router();
+const generateToken = require('../utils/generateToken')
 
 router
-  .get("/generateToken", generateToken(0));
+  // .use(authMiddleware)
+  .get("/generateToken",
+   (req, res)=>{
+     res.status(200).json({token: generateToken(0)});
+    }
+  );
 
 module.exports = router;
