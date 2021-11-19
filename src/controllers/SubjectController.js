@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const {Sequelize} = require('sequelize');
 const Category = require("../models/Category");
 const Subject = require("../models/Subject");
@@ -51,7 +52,8 @@ module.exports = {
 
       const subject = await Subject.findOne({
         where: {
-          name: name
+          name: {
+            [Op.like]: `%${name}%`}
         },
         attributes: ["id"]
       });
