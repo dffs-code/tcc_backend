@@ -129,6 +129,34 @@ module.exports = {
     }
   },
 
+  async changePassword(req, res) {
+    try {
+      const { id } = req.params;
+      const { password, new_password } = req.body;
+
+      const userBeforeModification = await User.findByPk(id);
+      bcrypt.compare(password, userBeforeModification.password, async (err, result) => {
+        if (err) {
+          res.status(401).json({
+            error: err,
+          });
+        }else{
+          await User.update({
+            password: generateHashedPassword(new_password),
+          },{
+            where: {
+              id: id,
+            },
+          }
+          );
+          res.sendStatus(200);
+        }
+      })
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
+
   async delete(req, res) {
     try {
       const { id } = req.params;

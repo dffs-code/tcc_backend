@@ -10,6 +10,7 @@ router
   .get("/users/:id", UserController.indexOne)
   .get("/users/:id/profile", UserController.userProfile)
   .put("/users/:id", UserController.update)
+  .put("/users/:id/changePassword", UserController.changePassword)
   .delete("/users/:id", UserController.delete)
 
   .post("/authenticate", verifyExistsMail, UserController.auth);
