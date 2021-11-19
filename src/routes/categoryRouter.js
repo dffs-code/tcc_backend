@@ -5,12 +5,11 @@ const authMiddleware = require("../middlewares/auth");
 const router = Router();
 
 router
-  .use(authMiddleware)
-  .post("/categories", CategoryController.store)
   .get("/categories/all", CategoryController.indexAll)
   .get("/categories/all/subjects", CategoryController.indexAllSubjects)
   .get("/categories/:id", CategoryController.indexOne)
-  .put("/categories/:id", CategoryController.update)
-  .delete("/categories/:id", CategoryController.delete);
+  .post("/categories", authMiddleware, CategoryController.store)
+  .put("/categories/:id", authMiddleware, CategoryController.update)
+  .delete("/categories/:id", authMiddleware, CategoryController.delete);
 
 module.exports = router;

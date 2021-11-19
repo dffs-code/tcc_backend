@@ -5,11 +5,10 @@ const authMiddleware = require("../middlewares/auth");
 const router = Router();
 
 router
-  .use(authMiddleware)
-  .post("/qualifications", QualificationController.store)
-  .get("/qualifications/all", QualificationController.indexAll)
-  .get("/qualifications/:id", QualificationController.indexOne)
-  .put("/qualifications/:id", QualificationController.update)
-  .delete("/qualifications/:id", QualificationController.delete);
+.get("/qualifications/all", QualificationController.indexAll)
+.get("/qualifications/:id", QualificationController.indexOne)
+.post("/qualifications", authMiddleware, QualificationController.store)
+.put("/qualifications/:id", authMiddleware, QualificationController.update)
+.delete("/qualifications/:id", authMiddleware, QualificationController.delete);
 
 module.exports = router;

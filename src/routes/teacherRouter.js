@@ -5,11 +5,9 @@ const authMiddleware = require("../middlewares/auth");
 const router = Router();
 
 router
-  .use(authMiddleware)
-
-  .post("/teacher", TeacherController.store)
   .get("/teacher/all", TeacherController.indexAll)
   .get("/teacher/:id", TeacherController.indexOne)
+  .post("/teacher", TeacherController.store)
   .put("/teacher/:id", TeacherController.update)
   .delete("/teacher/:id", TeacherController.delete);
 

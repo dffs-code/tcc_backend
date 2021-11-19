@@ -5,7 +5,6 @@ const authMiddleware = require("../middlewares/auth");
 const router = Router();
 
 router
-  .use(authMiddleware)
-  .get("/s3UploadImage", UploadImageController.generate)
+  .get("/s3UploadImage", authMiddleware, UploadImageController.generate)
 
 module.exports = router;

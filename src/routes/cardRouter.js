@@ -5,8 +5,6 @@ const authMiddleware = require("../middlewares/auth");
 const router = Router();
 
 router
-  .use(authMiddleware)
-  .post("/card", CardController.store)
   .get("/card/all", CardController.indexAll)
   .get("/card/fullCards", CardController.indexAllFullCards)
   .get("/card/category/:categoryId", CardController.indexAllCardsByCategory)
@@ -14,7 +12,8 @@ router
   .get("/card/teacher/:teacherId", CardController.indexAllCardsByTeacher)
   .get("/card/all/filter", CardController.indexCardsByFilter)
   .get("/card/:id", CardController.indexOne)
-  .put("/card/:id", CardController.update)
-  .delete("/card/:id", CardController.delete);
+  .post("/card", authMiddleware, CardController.store)
+  .put("/card/:id", authMiddleware, CardController.update)
+  .delete("/card/:id", authMiddleware, CardController.delete);
 
 module.exports = router;
