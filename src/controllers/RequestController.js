@@ -92,6 +92,22 @@ module.exports = {
           }]
         }
       });
+
+      //0 = pending
+      //1 = accepted
+      //2 = rejected
+      //3 = finalized
+
+      requests.map((item) => {
+        //caso tempo passado mudar status
+        if(item.status === 1){
+          if((new Date(item.endDateTime) - new Date()) < 0){
+            item.update({status: 3})
+          }
+        }
+      });
+
+
       return res.status(200).json(requests);
     } catch (err) {
       console.log(err);
