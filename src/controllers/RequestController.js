@@ -155,7 +155,22 @@ module.exports = {
         order: [[
           "status", 'ASC']]
       });
-      return res.status(200).json(requests);
+
+      //0 = pending
+      //1 = accepted
+      //2 = rejected
+      //3 = finalized
+
+      requests.map((item) => {
+        //caso tempo passado mudar status
+        if(item.status === 1){
+          if((new Date(item.endDateTime) - new Date()) < 0){
+            item.update({status: 3})
+          }
+        }
+      });
+      
+      return res.status(200).json(updatedRequests);
     } catch (err) {
       console.log(err);
       res.status(500).json(err);
