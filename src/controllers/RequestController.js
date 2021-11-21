@@ -170,7 +170,7 @@ module.exports = {
         }
       });
       
-      return res.status(200).json(updatedRequests);
+      return res.status(200).json(requests);
     } catch (err) {
       console.log(err);
       res.status(500).json(err);
