@@ -76,7 +76,7 @@ module.exports = {
     try {
       const requests = await Request.findAll({
         where: whereStatement,        
-        include: {
+        include: [{
           association: "card",
           attributes: ["id"],
           include: [{
@@ -90,7 +90,10 @@ module.exports = {
             association: "subject",
             attributes: ["name"]
           }]
-        }
+        },{
+          association: "ratings",
+          // attributes: ["stars"]
+        }]
       });
 
       //0 = pending
