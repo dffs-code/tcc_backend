@@ -4,7 +4,7 @@ const Request = require("../models/Request");
 module.exports = {
   async store(req, res) {
     try {
-      const { request_id, stars, message } = req.body;
+      const { request_id, stars, message, card_id } = req.body;
 
       const verifyIfExistsRequest = await Request.findByPk(request_id);
 
@@ -14,11 +14,12 @@ module.exports = {
 
       const rating = await Rating.create({
         request_id,
-        stars,
+        stars: Number(stars),
         message,
+        card_id,
       });
 
-      return res.status(201).json(rating);
+      return res.status(201);
     } catch (err) {
       console.log(err);
       res.status(500).json(err);
