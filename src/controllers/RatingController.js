@@ -14,12 +14,12 @@ module.exports = {
 
       const rating = await Rating.create({
         request_id,
-        stars: Number(stars),
+        stars,
         message,
         card_id,
       });
 
-      return res.status(201);
+      return res.status(201).json(rating);
     } catch (err) {
       console.log(err);
       res.status(500).json(err);
