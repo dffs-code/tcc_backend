@@ -7,8 +7,8 @@ const router = Router();
 router
   .get("/teacher/all", TeacherController.indexAll)
   .get("/teacher/:id", TeacherController.indexOne)
-  .post("/teacher", TeacherController.store)
-  .put("/teacher/:id", TeacherController.update)
-  .delete("/teacher/:id", TeacherController.delete);
+  .post("/teacher", authMiddleware, TeacherController.store)
+  .put("/teacher/:id", authMiddleware, TeacherController.update)
+  .delete("/teacher/:id", authMiddleware, TeacherController.delete);
 
 module.exports = router;

@@ -12,7 +12,6 @@ const generateToken = require("./generateToken")
 
 module.exports = (app) => {
   app.use(
-    generateToken,
     user,
     teacher,
     student,

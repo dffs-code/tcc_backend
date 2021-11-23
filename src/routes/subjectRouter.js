@@ -11,7 +11,7 @@ router
   .get("/subjectByName/:name", SubjectController.indexByName)
   .get("/subjectsByCategory/:category_id", SubjectController.indexByCategory)
   .post("/subjects", authMiddleware, SubjectController.store)
-  .put("/subjects/:id", SubjectController.update)
-  .delete("/subjects/:id", SubjectController.delete);
+  .put("/subjects/:id", authMiddleware, SubjectController.update)
+  .delete("/subjects/:id", authMiddleware, SubjectController.delete);
 
 module.exports = router;
